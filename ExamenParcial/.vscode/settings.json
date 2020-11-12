@@ -1,9 +1,10 @@
+// .vscode/settings.json
 {
     "deno.enable": true,
     "deno.unstable": true,
     "deno.lint": true,
     "deno.import_intellisense_origins": {
-        "http://deno.land": true
+        "https://deno.land": true
     },
     "deno.import_intellisense_autodiscovery": true,
     "[typescript]": {

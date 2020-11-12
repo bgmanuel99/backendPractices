@@ -6,6 +6,8 @@ import { ProductSchema, ClientSchema, InvoiceSchema } from "../types.ts"
 import type { IContext } from "../types.ts"
 // @ts-ignore
 import { helpers } from "https://deno.land/x/oak@v6.3.1/mod.ts"
+// @ts-ignore
+import { ObjectId } from  "https://deno.land/x/mongo@v0.12.1/ts/types.ts"
 
 export const getInvoice = async (ctx: IContext) => {
     try{
@@ -17,7 +19,7 @@ export const getInvoice = async (ctx: IContext) => {
 
         const { ID } = helpers.getQuery(ctx, { mergeParams: true });
 
-        const invoice: Partial<InvoiceSchema> | null = await invoiceCollection.findOne({_id: ObjectId(ID)})
+        const invoice: InvoiceSchema | null = await invoiceCollection.findOne({_id: ObjectId(ID)})
 
         if(invoice){
             const client: Partial<ClientSchema> | null = await clientCollection.findOne({cif: invoice.clientCIF})
