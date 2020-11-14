@@ -32,8 +32,6 @@ export const postClient = async (ctx: IContext) => {
                 if(!existClient) return client
             })
 
-            console.log(result)
-
             const finalData: Partial<ClientSchema>[] = await Promise.all(result)
 
             const insert = await clientCollection.insertMany(finalData)
