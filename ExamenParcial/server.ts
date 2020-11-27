@@ -1,6 +1,10 @@
+// @ts-ignore
 import { Application } from 'https://deno.land/x/oak@v6.3.1/mod.ts'
+// @ts-ignore
 import "https://deno.land/x/dotenv/load.ts"
+// @ts-ignore
 import { MongoClient } from "https://deno.land/x/mongo@v0.12.1/mod.ts"
+// @ts-ignore
 import router from "./routesCenter.ts"
 
 const port: number = Number(Deno.env.get("PORT")) || 8000
