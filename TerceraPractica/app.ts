@@ -6,6 +6,7 @@ import { types, TaskSchema } from "./types.ts"
 import { resolvers } from "./resolvers/resolvers.ts"
 
 const app = new Application();
+const port = Number(Deno.env.get("PORT")) || 8000
 
 try {
   // connect to Mongo DB
@@ -47,7 +48,7 @@ try {
   app.use(GraphQLService.routes(), GraphQLService.allowedMethods());
 
   console.log("Server start at http://localhost:8000");
-  await app.listen({ port: 8000 });
+  await app.listen({ port: port });
 } catch (e) {
   console.log(e);
 }
