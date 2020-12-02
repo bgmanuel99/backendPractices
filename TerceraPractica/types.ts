@@ -5,7 +5,7 @@ export const types = gql`
     id: Int
     nombre: String
     descripcion: String
-    fechaDeFinalizacion: String
+    fechaDeFinalizacion: Int
     state: String
   }
 
@@ -13,23 +13,27 @@ export const types = gql`
     id: Int
     nombre: String
     descripcion: String
-    fechaDeFinalizacion: String
+    fechaDeFinalizacion: Int
     state: String
+  }
+
+  type ResolveType {
+    done: Boolean
   }
 
   type Query {
     getTask(id: Int): Task
     getTasks: [Task]!
     getTaskByState(state: String): [Task]!
-    getTaskByDate(fecha: String): [Task]!
+    getTaskByDate(fecha: Int): [Task]!
   }
 
   type Mutation {
-    addTask(input: TaskSchema!): String!
-    removeTask(id: Int): String!
-    updateTask(input: TaskSchema!): String!
-    completeTask(id: Int): String!
-    startTask(id: Int): String!
+    addTask(input: TaskSchema!): ResolveType!
+    removeTask(id: Int): ResolveType!
+    updateTask(input: TaskSchema!): ResolveType!
+    completeTask(id: Int): ResolveType!
+    startTask(id: Int): ResolveType!
   }
 `;
 
@@ -38,6 +42,6 @@ export interface TaskSchema {
   id: number;
   nombre: string;
   descripcion: string;
-  fechaDeFinalizacion: string;
+  fechaDeFinalizacion: number;
   state: string;
 }
