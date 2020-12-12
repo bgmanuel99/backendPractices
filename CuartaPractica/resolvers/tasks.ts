@@ -11,18 +11,12 @@ export const Task = {
             const userCollection: Collection<UserSchema> = db.collection<UserSchema>("UserCollection")
 
             const user: UserSchema | null = await userCollection.findOne({ email: parent.reporter })
-
-            const reporterTasks: TaskSchema[] = await taskCollection.find({ reporter: user?.email })
-            const parsedReporterTaks: number[] = reporterTasks.map((task: TaskSchema) => task.id)
-            
-            const assigneeTasks: TaskSchema[] = await taskCollection.find({ assignee: user?.email })
-            const parsedAssigneeTasks: number[] = assigneeTasks.map((task: TaskSchema) => task.id)
             
             return {
                 email: user?.email,
                 password: user?.password,
-                reporterTasks: parsedReporterTaks,
-                assigneeTasks: parsedAssigneeTasks
+                reporterTasks: [...await taskCollection.find({ reporter: user?.email })].map((task: TaskSchema) => task.id),
+                assigneeTasks: [...await taskCollection.find({ assignee: user?.email })].map((task: TaskSchema) => task.id),
             }
         } catch (e) {
             throw new GQLError(e)
@@ -36,17 +30,11 @@ export const Task = {
 
             const user: UserSchema | null = await userCollection.findOne({ email: parent.assignee })
             
-            const reporterTasks: TaskSchema[] = await taskCollection.find({ reporter: user?.email })
-            const parsedReporterTaks: number[] = reporterTasks.map((task: TaskSchema) => task.id)
-            
-            const assigneeTasks: TaskSchema[] = await taskCollection.find({ assignee: user?.email })
-            const parsedAssigneeTasks: number[] = assigneeTasks.map((task: TaskSchema) => task.id)
-            
             return {
                 email: user?.email,
                 password: user?.password,
-                reporterTasks: parsedReporterTaks,
-                assigneeTasks: parsedAssigneeTasks
+                reporterTasks: [...await taskCollection.find({ reporter: user?.email })].map((task: TaskSchema) => task.id),
+                assigneeTasks: [...await taskCollection.find({ assignee: user?.email })].map((task: TaskSchema) => task.id),
             }
         } catch (e) {
             throw new GQLError(e)

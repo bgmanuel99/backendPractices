@@ -14,9 +14,7 @@ export const User = {
                 
                 if (task) return {
                     ...task,
-                    date: task.date.toString(),
-                    reporter: task?.reporter,
-                    assignee: task?.assignee,
+                    date: task.date.toString()
                 } as ITask
             }))
         } catch (e) {
@@ -33,9 +31,7 @@ export const User = {
                 
                 if (task) return {
                     ...task,
-                    date: task.date.toString(),
-                    reporter: task?.reporter,
-                    assignee: task?.assignee,
+                    date: task.date.toString()
                 } as ITask
             }))
         } catch (e) {

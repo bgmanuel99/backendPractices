@@ -134,17 +134,11 @@ export const querys = {
       const users: UserSchema[] = await userCollection.find({})
 
       return await Promise.all(users.map(async (user: UserSchema) => {
-        const reporterTasks: TaskSchema[] = await taskCollection.find({ reporter: user.email })
-        const parsedReporterTaks: number[] = reporterTasks.map((task: TaskSchema) => task.id)
-
-        const assigneeTasks: TaskSchema[] = await taskCollection.find({ assignee: user.email })
-        const parsedAssigneeTasks: number[] = assigneeTasks.map((task: TaskSchema) => task.id)
-
         return {
           email: user.email,
           password: user.password,
-          reporterTasks: parsedReporterTaks,
-          assigneeTasks: parsedAssigneeTasks,
+          reporterTasks: [...await taskCollection.find({ reporter: user?.email })].map((task: TaskSchema) => task.id),
+          assigneeTasks: [...await taskCollection.find({ assignee: user?.email })].map((task: TaskSchema) => task.id),
         } as IUser
       }))
     } catch (e) {
